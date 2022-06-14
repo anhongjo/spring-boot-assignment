@@ -1,42 +1,32 @@
 package com.hongjo.museumreservation.service.security;
 
+import com.hongjo.museumreservation.dto.CustomUserDetails;
 import com.hongjo.museumreservation.entity.UserEntity;
 import com.hongjo.museumreservation.repository.UserRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.hongjo.museumreservation.vo.UserSessionVo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import javax.servlet.http.HttpSession;
 
-@Service
-@AllArgsConstructor
+// 참고: https://dev-coco.tistory.com/120
 @RequiredArgsConstructor
+@Component
 public class CustomUserDetailsService implements UserDetailsService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final HttpSession httpSession;
 
+    // User가 DB에 있는지 확인
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserEntity> userEntity = userRepository.findByUsername(username);
-        if (userEntity.isEmpty()) {
-            throw new UsernameNotFoundException(username);
-        }
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User Not Found: " + username));
+        httpSession.setAttribute("user", new UserSessionVo(userEntity));
 
-        return User.builder()
-                .username(userEntity.get().getUsername())
-                .password(userEntity.get().getPassword())
-                .roles(userEntity.get().getRole())
-                .build();
+        return new CustomUserDetails(userEntity);
     }
 
-    @Bean
-    public BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

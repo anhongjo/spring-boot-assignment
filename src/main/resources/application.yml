@@ -15,6 +15,13 @@ spring:
     livereload:
       enabled: true
 
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+
 server:
   servlet:
     register-default-servlet: true

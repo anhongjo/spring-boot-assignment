@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "user")
 public class UserEntity {
     @Id
     @GeneratedValue
@@ -19,7 +20,7 @@ public class UserEntity {
     private long id;
 
     // 로그인 할 때 ID로 사용 그래서 unique 옵션 넣음.
-    @Column(unique = true)
+    @Column(unique = true, length = 100)
     private String username;
 
     private String password;

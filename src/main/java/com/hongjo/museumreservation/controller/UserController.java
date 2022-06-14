@@ -1,22 +1,28 @@
 package com.hongjo.museumreservation.controller;
 
-import com.hongjo.museumreservation.entity.UserEntity;
-import com.hongjo.museumreservation.repository.UserRepository;
+import com.hongjo.museumreservation.dto.UserDto;
+import com.hongjo.museumreservation.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
-@NoArgsConstructor
+@Controller
 @AllArgsConstructor
+@RequestMapping(value = "/user")
 public class UserController {
-    private UserRepository userRepository;
+    private final UserService userService;
 
-    // USER GENERATE TEST
-    @GetMapping(value = "/user/generate/{role}/{username}/{password}")
-    public UserEntity createUser(@ModelAttribute UserEntity userEntity) {
-        return userRepository.save(userEntity);
+    @GetMapping(value = "/register")
+    public String getRegister() {
+        return "/content/home";
+    }
+
+    @PostMapping("/register")
+    public String postRegister(UserDto userDto) {
+        userService.registerUser(userDto);
+
+        return "redirect:/login";
     }
 }
