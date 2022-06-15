@@ -24,6 +24,8 @@ public class SecurityConfiguration {
                                         .loginPage("/login")
                                         .usernameParameter("input-ID")
                                         .passwordParameter("input-password")
+                                        .failureForwardUrl("/login?fail=true")
+                                        .successForwardUrl("/home")
                                         .permitAll()
                                         .and()
                                         .logout()
@@ -41,7 +43,7 @@ public class SecurityConfiguration {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/**", "/css/**", "/js/**", "/img/**");
+        return (web) -> web.ignoring().antMatchers("/register", "/home", "/css/**", "/js/**", "/img/**");
     }
 
     @Bean

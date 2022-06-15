@@ -12,17 +12,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @RequestMapping(value = "/user")
 public class UserController {
-    private final UserService userService;
 
-    @GetMapping(value = "/register")
-    public String getRegister() {
-        return "/content/home";
-    }
-
-    @PostMapping("/register")
-    public String postRegister(UserDto userDto) {
-        userService.registerUser(userDto);
-
-        return "redirect:/login";
-    }
 }
