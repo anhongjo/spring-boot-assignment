@@ -43,7 +43,7 @@ public class SecurityConfiguration {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/register", "/home", "/css/**", "/js/**", "/img/**");
+        return (web) -> web.ignoring().antMatchers("/", "/register", "/home", "/css/**", "/js/**", "/img/**");
     }
 
     @Bean
