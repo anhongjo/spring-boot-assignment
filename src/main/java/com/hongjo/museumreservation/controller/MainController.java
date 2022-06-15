@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
     private final UserService userService;
 
-    @GetMapping(value = "/home")
+    @GetMapping(value = {"/home", "/"})
     public String goHome() {
         return "content/home";
     }
