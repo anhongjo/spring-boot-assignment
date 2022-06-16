@@ -1,5 +1,6 @@
 package com.hongjo.museumreservation.entity;
 
+import com.hongjo.museumreservation.dto.PhonePrefixEnum;
 import com.hongjo.museumreservation.dto.UserRole;
 import lombok.*;
 
@@ -23,16 +24,17 @@ public class UserEntity {
     @Column(unique = true, length = 100)
     private String username;
 
+    @Column
     private String password;
 
     @Column
+    private PhonePrefixEnum phonePrefix;
+
+    @Column
+    private String phone;
+
+    @Column
     private String name;
-
-    @Column
-    private String email;
-
-    @Column
-    private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

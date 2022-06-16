@@ -1,6 +1,5 @@
 package com.hongjo.museumreservation.config;
 
-import com.hongjo.museumreservation.exception.CustomAuthFailureHandler;
 import com.hongjo.museumreservation.service.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService customUserDetailsService;
-    private final CustomAuthFailureHandler customAuthFailureHandler;
 
     @Bean
     public BCryptPasswordEncoder encoder() {
