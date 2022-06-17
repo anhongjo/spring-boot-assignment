@@ -1,28 +1,19 @@
 package com.hongjo.museumreservation.controller;
 
 import com.hongjo.museumreservation.dto.CustomUserDetails;
-import com.hongjo.museumreservation.dto.UserDto;
-import com.hongjo.museumreservation.entity.UserEntity;
-import com.hongjo.museumreservation.service.UserService;
+import com.hongjo.museumreservation.vo.UserSessionVo;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.catalina.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
 @Log4j2
 public class MainController {
-    private final UserService userService;
-
     @GetMapping(value = {"/home", "/"})
     public String goHome() {
         return "content/home";
@@ -43,8 +34,8 @@ public class MainController {
 
     @GetMapping(value = "/check_security")
     public String getSecurity(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        final UserDto userDto = new UserDto(customUserDetails);
-        log.info("userDto: " + userDto);
+        final UserSessionVo userSessionVo = new UserSessionVo(customUserDetails.getUserEntity());
+        log.info("userSessionVo: " + userSessionVo);
         return "content/home";
     }
 }

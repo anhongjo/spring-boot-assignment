@@ -14,7 +14,7 @@ public class UserSessionVo implements Serializable {
     private final String phone;
     private final UserRole role;
 
-    /* Entity -> DTO */
+    // Entity -> Vo
     public UserSessionVo(UserEntity user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
