@@ -36,6 +36,15 @@ function isValidate(obj) {
         return false;
     }
 
-    alert("회원가입 완료.")
     return true;
+}
+
+// 영문, 숫자 외에는 입력되지 않도록 설정
+function usernameCheck(obj) {
+    obj.value = obj.value.replace(/[^0-9a-z]/, '');
+}
+
+// 한글 외에는 입력되지 않도록 설정
+function nameCheck(obj) {
+    obj.value = obj.value.replace(/[^가-힣]/, '');
 }

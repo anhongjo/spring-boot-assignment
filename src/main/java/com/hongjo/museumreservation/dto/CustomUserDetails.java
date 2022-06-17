@@ -2,6 +2,8 @@ package com.hongjo.museumreservation.dto;
 
 import com.hongjo.museumreservation.entity.UserEntity;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @AllArgsConstructor
+@Getter
 public class CustomUserDetails implements UserDetails {
     private UserEntity userEntity;
 

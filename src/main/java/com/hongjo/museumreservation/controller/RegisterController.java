@@ -27,6 +27,7 @@ public class RegisterController {
 
     @PostMapping("")
     public String postRegister(UserDto userDto) {
+        log.info("UserDto: " + userDto);
         userService.registerUser(userDto);
 
         return "redirect:/login?new_user=true";

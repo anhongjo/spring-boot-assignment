@@ -1,10 +1,13 @@
 package com.hongjo.museumreservation.controller;
 
+import com.hongjo.museumreservation.dto.CustomUserDetails;
 import com.hongjo.museumreservation.dto.UserDto;
 import com.hongjo.museumreservation.entity.UserEntity;
 import com.hongjo.museumreservation.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.catalina.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,5 +39,12 @@ public class MainController {
         model.addAttribute("newUser", newUser);
 
         return "/content/login";
+    }
+
+    @GetMapping(value = "/check_security")
+    public String getSecurity(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        final UserDto userDto = new UserDto(customUserDetails);
+        log.info("userDto: " + userDto);
+        return "content/home";
     }
 }

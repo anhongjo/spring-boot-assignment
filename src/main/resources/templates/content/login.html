@@ -11,11 +11,11 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <br>
-        <img src="//overlay.cocoblue.me/images/museum_icon.png" style="align-content: center">
+        <img src="//overlay.cocoblue.me/images/museum_icon.png" style="width: 300px; align-content: center">
         <h1>Hong Museum</h1>
         <h2 th:if="${fail == true}" style="color: tomato;">로그인에 실패하였습니다.</h2>
         <form method="post" action="/auth">
-            <input type="text" name="userId" class="fadeIn second" placeholder="****@exapmle.com">
+            <input type="text" name="username" class="fadeIn second" placeholder="ID">
             <input type="password" name="password" class="fadeIn third" placeholder="비밀번호">
             <input type="submit" value="로그인" class="fadeIn fourth">
         </form>
