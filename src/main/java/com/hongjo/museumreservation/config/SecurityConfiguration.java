@@ -1,53 +1,55 @@
 package com.hongjo.museumreservation.config;
 
+import com.hongjo.museumreservation.service.security.CustomUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((auth) -> {
-                            try {
-                                auth
-                                        .anyRequest().authenticated()
-                                        .and().formLogin()
-                                        .loginPage("/login")
-                                        .usernameParameter("input-ID")
-                                        .passwordParameter("input-password")
-                                        .failureForwardUrl("/login?fail=true")
-                                        .successForwardUrl("/home")
-                                        .permitAll()
-                                        .and()
-                                        .logout()
-                                        .logoutUrl("/logout")
-                                        .logoutSuccessUrl("/")
-                                        .permitAll();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                )
-                .httpBasic(withDefaults());
-        return http.build();
-    }
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/", "/register", "/home", "/css/**", "/js/**", "/img/**");
-    }
-
-    @Bean
-    public BCryptPasswordEncoder encode() {
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(encoder());
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/register/**", "/", "/auth", "/login", "/home").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .loginProcessingUrl("/auth")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login?fail=true")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
     }
 }

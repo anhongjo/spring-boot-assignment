@@ -4,7 +4,6 @@ import com.hongjo.museumreservation.dto.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -23,16 +22,14 @@ public class UserEntity {
     @Column(unique = true, length = 100)
     private String username;
 
+    @Column
     private String password;
 
     @Column
+    private String phone;
+
+    @Column(length = 50)
     private String name;
-
-    @Column
-    private String email;
-
-    @Column
-    private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
