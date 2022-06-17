@@ -1,116 +1,108 @@
-<html>
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta charSet="UTF-8">
     <title>회원 가입</title>
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossOrigin="anonymous">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <SCRIPT type="text/javascript">
-        function fn_emailCheck(obj) {
-            if(obj.id.value === "") {
-                alert("이메일을 입력하세요.");
-                return false
-            }
-            const form = {
-                id: obj.id.value
-            }
-            $.ajax({
-                url : "emailCheck",
-                type : "POST",
-                dataType: 'json',
-                data : form,
-                success : function(data){
-                    if(data) {
-                        obj.emailChk.setAttribute("value", "true")
-                        obj.id.readOnly = true;
-                        obj.emailChk.disabled = true;
-                        alert("사용가능한 아이디입니다.");
-                    } else {
-                        alert("중복된 아이디입니다.");
-                    }
-                }
-            })
-        }
-    </SCRIPT>
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
-    <!-- 중복 확인, 비밀번호 일치 확인용 함수 -->
-    <script type="text/javascript">
-        function isValidate(obj) {
-            if(obj.emailChk.getAttribute("value") === "N") {
-                alert("이메일 중복 확인을 수행하세요.")
-                return false;
-            }
-            if(obj.password.value !== obj.password_re.value) {
-                obj.password.focus()
-                alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
-                return false;
-            }
-            alert("회원가입 완료.")
-            return true;
-        }
-    </script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="/js/register.js"></script>
 </head>
 <body>
-<form class="form-horizontal" method="post" action="insert" onsubmit="return isValidate(this);">
-    <fieldset>
-        <div id="legend">
-            <legend class="">회원 가입</legend>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label">이름</label>
-            <div class="controls">
-                <input type="text" name="name" class="input-xlarge" required>
-                <p class="help-block"></p>
+<br>
+<div style="background-color: #EEEEEE;" class="container">
+    <br>
+    <h2>회원 가입</h2>
+    <form class="form-horizontal" method="post" action="/register" onSubmit="return isValidate(this);">
+        <div class="form-group">
+            <label for="inputName">이름</label>
+            <div>
+                <input class="form-control" type="text" name="name" id="inputName" required>
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label">성별</label>
-            <div class="controls">
-                <input type='radio' name='gender' value='true' />남
-                <input type='radio' name='gender' value='false' />여
+        <div class="form-group">
+            <label for="inputUsername">ID</label>
+            <div class="form-group">
+                <input type="text" id="inputUsername" name="username" class="input-xlarge" required/>
+                <button class="btn btn-secondary" name="idChk" id="btnIdChk" type="button"
+                        onClick="fn_idCheck(this.form);" value="N">중복 확인
+                </button>
+                <small class="form-text text-muted">로그인 할 때 사용할 아이디입니다.</small>
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label">이메일</label>
-            <div class="controls">
-                <input type="text" name="id" class="input-xlarge" required/>
-                <button name="emailChk" type="button" onclick="fn_emailCheck(this.form);" value="N" >중복 확인</button>
-                <p class="help-block">아이디로 사용됩니다.</p>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label">생년월일</label>
-            <div class="controls">
-                <input type="date" name="birthday" value="xxx" min="yyy" max="zzz" required>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label">비밀번호</label>
-            <div class="controls">
-                <input type="password" name="password"  class="input-xlarge" required>
-                <p class="help-block">비밀번호를 입력해주세요.</p>
+        <div class="form-group">
+            <label for="inputPassword">비밀번호</label>
+            <div>
+                <input class="form-control" id="inputPassword" type="password" name="password" required>
+                <small class="form-text text-muted">비밀번호를 입력해주세요.</small>
             </div>
         </div>
 
         <div>
-            <label class="control-label">비밀번호 확인</label>
-            <div class="controls">
-                <input type="password" name="password_re" class="input-xlarge" required>
-                <p class="help-block">비밀번호를 한번 더 입력해주세요.</p>
+            <label for="inputPasswordRe">비밀번호 확인</label>
+            <div>
+                <input class="form-control" id="inputPasswordRe" type="password" name="password_re" required>
+                <small class="form-text text-muted">비밀번호를 한번 더 입력해주세요.</small>
             </div>
         </div>
 
-        <div class="control-group">
-            <div class="controls">
-                <input type="submit" value="회원 가입" class="btn btn-success">
+        <div>
+            <label for="inputPhone">전화 번호</label>
+            <div>
+                <input type="text"
+                       id="inputPhone"
+                       class="form-control m-input"
+                       maxLength="13"
+                       placeholder="010-1234-5678" required>
             </div>
         </div>
-    </fieldset>
-</form>
+        <br>
+        <div class="form-group">
+            <div class="controls">
+                <input type="submit" value="회원 가입" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+</div>
 </body>
+
+<script>
+    // 출처: https://juein.tistory.com/43
+    let autoHypenPhone = function (str) {
+        str = str.replace(/[^0-9]/g, '');
+        let tmp = '';
+        if (str.length < 4) {
+            return str;
+        } else if (str.length < 7) {
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3);
+            return tmp;
+        } else if (str.length < 11) {
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 3);
+            tmp += '-';
+            tmp += str.substr(6);
+            return tmp;
+        } else {
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 4);
+            tmp += '-';
+            tmp += str.substr(7);
+            return tmp;
+        }
+    }
+
+    const phoneNum = document.getElementById('inputPhone');
+    phoneNum.onkeyup = function () {
+        console.log(this.value);
+        this.value = autoHypenPhone(this.value);
+    }
+</script>
 </html>

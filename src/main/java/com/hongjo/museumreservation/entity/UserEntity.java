@@ -1,11 +1,9 @@
 package com.hongjo.museumreservation.entity;
 
-import com.hongjo.museumreservation.dto.PhonePrefixEnum;
 import com.hongjo.museumreservation.dto.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -28,12 +26,9 @@ public class UserEntity {
     private String password;
 
     @Column
-    private PhonePrefixEnum phonePrefix;
-
-    @Column
     private String phone;
 
-    @Column
+    @Column(length = 50)
     private String name;
 
     @Enumerated(EnumType.STRING)
