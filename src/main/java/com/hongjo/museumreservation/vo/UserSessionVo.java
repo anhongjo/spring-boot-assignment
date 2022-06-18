@@ -3,10 +3,12 @@ package com.hongjo.museumreservation.vo;
 import com.hongjo.museumreservation.dto.UserRole;
 import com.hongjo.museumreservation.entity.UserEntity;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @Getter
+@ToString
 public class UserSessionVo implements Serializable {
     private final String username;
     private final String password;
