@@ -1,17 +1,16 @@
 <html>
 <head>
     <title>로그인</title>
-
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <th:block th:replace="/layout/head" th:fragment="headFragment"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/login.css" type="text/css">
 </head>
 <body>
+<th:block th:replace="layout/header_not_login :: topbarFragment"></th:block>
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <br>
-        <img src="//overlay.cocoblue.me/images/museum_icon.png" style="width: 300px; align-content: center">
+        <img src="https://overlay.cocoblue.me/images/museum_icon.png" style="width: 300px; align-content: center">
         <h1>Hong Museum</h1>
         <h2 th:if="${fail == true}" style="color: tomato;">로그인에 실패하였습니다.</h2>
         <h2 th:if="${newUser == true}" style="color: forestgreen;">회원가입이 완료되었습니다. 로그인하세요.</h2>
