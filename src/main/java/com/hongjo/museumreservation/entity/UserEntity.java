@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "user")
 public class UserEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     // 내부 분류용 ID
     private long id;
 

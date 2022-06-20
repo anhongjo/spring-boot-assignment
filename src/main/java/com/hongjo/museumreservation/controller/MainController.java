@@ -4,6 +4,7 @@ import com.hongjo.museumreservation.dto.CustomUserDetails;
 import com.hongjo.museumreservation.vo.UserSessionVo;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 @Log4j2
 public class MainController {
-    @GetMapping(value = {"/home", "/"})
-    public String goHome() {
+    @GetMapping(value = { "/"})
+    public String getMain() {
         return "content/home";
     }
 
     @GetMapping(value = "/login")
+    @PreAuthorize("isAnonymous()")
     public String getLogin(Model model, @RequestParam(name = "fail", required = false) boolean fail,
                            @RequestParam(name = "new_user", required = false) boolean newUser) {
         log.info("Received /login Request");

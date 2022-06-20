@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Table(name = "reservation_type_entity")
+@Table(name = "reservation_type")
 @Entity
 @Getter
 @Setter
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ReservationTypeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     @Column

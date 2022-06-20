@@ -5,6 +5,7 @@ import com.hongjo.museumreservation.entity.UserEntity;
 import com.hongjo.museumreservation.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,11 +22,13 @@ public class RegisterController {
     private final UserService userService;
 
     @GetMapping(value = "")
+    @PreAuthorize("isAnonymous()")
     public String getRegister() {
         return "/content/register";
     }
 
     @PostMapping("")
+    @PreAuthorize("isAnonymous()")
     public String postRegister(UserDto userDto) {
         log.info("UserDto: " + userDto);
         userService.registerUser(userDto);

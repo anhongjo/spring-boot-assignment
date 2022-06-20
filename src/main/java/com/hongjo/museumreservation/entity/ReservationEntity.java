@@ -1,8 +1,12 @@
 package com.hongjo.museumreservation.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Table(name = "reservation")
 @Entity
@@ -18,6 +22,9 @@ public class ReservationEntity {
 
     @Column
     private short peopleNum;
+
+    @Column
+    private LocalDate reservationDate;
 
     @ManyToOne
     @JoinColumn(name="reserved_user")
