@@ -6,6 +6,7 @@ function fn_idCheck(obj) {
     const form = {
         username: obj.username.value
     }
+    console.log(obj.username.value);
     $.ajax({
         url : "/register/check_id",
         type : "POST",
@@ -30,7 +31,7 @@ function isValidate(obj) {
         return false;
     }
 
-    if(obj.password.value !== obj.password_re.value) {
+    if(obj.password.value !== obj.passwordRe.value) {
         obj.password.focus()
         alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
         return false;

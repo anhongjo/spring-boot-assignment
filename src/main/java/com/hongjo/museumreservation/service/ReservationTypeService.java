@@ -2,8 +2,8 @@ package com.hongjo.museumreservation.service;
 
 import com.hongjo.museumreservation.entity.ReservationTypeEntity;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface ReservationTypeService {
-    Optional<ReservationTypeEntity> getAllReservationType();
+    List<ReservationTypeEntity> getAllReservationType();
 }

@@ -3,6 +3,7 @@
     <meta charSet="UTF-8">
     <title>회원가입</title>
     <th:block th:replace="/layout/head" th:fragment="headFragment"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/js/register.js"></script>
 </head>
 <body>
@@ -32,6 +33,7 @@
                 <button class="btn btn-secondary" name="idChk" id="btnIdChk" type="button"
                         onClick="fn_idCheck(this.form);" value="N">중복 확인
                 </button>
+                <br>
                 <small class="form-text text-muted">로그인 할 때 사용할 ID 입니다. ID는 4 ~ 20자리의 영문 또는 숫자만 사용할 수 있습니다. 중복 확인 이후 수정할 수 없으므로 신중하게 결정하시기 바랍니다.</small>
             </div>
         </div>
